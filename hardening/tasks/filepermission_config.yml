@@ -1,0 +1,23 @@
+---
+
+- name: check permission
+  stat:
+    path: "{{ item }}"
+  with_items:
+    - /var/log/messages
+    - /var/log/secure
+    - /var/log/wtmp
+    - /var/log/lastlog
+  register: result_mess
+
+- name:
+  debug: var=result_mess
+
+
+- name: Chnage permission of file based on result
+  file:
+    path: "{{ item.item }}"
+    mode: 0622
+  with_items: "{{ result_mess.results }}"
+  when: item.stat.mode != 0622
+

@@ -1,0 +1,33 @@
+---
+
+ - name: Disbale root loging
+   lineinfile:
+     path: /etc/ssh/sshd_config
+     backup: yes
+     regexp: '^[#]*PermitRootLogin without-password'
+     line: 'PermitRootLogin without-password'
+     state: present
+   notify: restart ssh
+   register: ssh
+
+ - name:
+   debug: var=ssh
+
+ - name: enable PermitEmptyPasswords=no in sshd config
+   lineinfile:
+     path: /etc/ssh/sshd_config
+     backup: yes
+     regexp: '^[#]*PermitEmptyPasswords no'
+     line: 'PermitEmptyPasswords no'
+     state: present
+   notify: restart ssh
+   register: empty_pass
+
+ - name:
+   debug: var=empty_pass
+
+ - name: set idle sesstion time for client
+   lineinfile:
+     path: /etc/ssh/sshd_config
+     backup: yes
+     regexp:

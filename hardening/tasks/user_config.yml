@@ -1,0 +1,7 @@
+---
+
+- name: setting password policies on the host
+  copy:
+    src: login.defs
+    dest: /etc
+    backup: yes

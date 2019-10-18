@@ -1,0 +1,5 @@
+---
+
+- name: Disable cron for non-root users
+  shell: >
+    cat /etc/passwd | cut -f1 -d: | grep -v root | grep -v sysadm > /etc/cron.deny

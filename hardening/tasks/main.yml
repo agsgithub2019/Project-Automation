@@ -1,0 +1,9 @@
+---
+# tasks file for hardening
+
+#- include: ssh_config.yml
+#- include: user_config.yml
+#- include: disable_cron.yml
+- include: filepermission_config.yml
+##- include: ssh_config.yml
+#

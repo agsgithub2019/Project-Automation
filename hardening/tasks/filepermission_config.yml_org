@@ -1,0 +1,53 @@
+---
+
+- name: check permission of /var/log/messages
+  stat:
+    path: /var/log/messages
+  register: result_mess
+
+- name: Chnage permission of /var/log/messages based on result
+  file:
+    path: /var/log/messages
+    mode: 0622
+    backup: yes
+  when: result_mess.stat.mode != 0622
+
+
+- name: check permission of /var/log/secure
+  stat:
+    path: /var/log/secure
+  register: result_sec
+
+- name: Chnage permission of /var/log/secure based on result
+  file:
+    path: /var/log/secure
+    mode: 0622
+    backup: yes
+  when: result_sec.stat.mode != 0622
+
+
+- name: check permission of /var/log/wtmp
+  stat:
+    path: /var/log/wtmp 
+  register: result_wtmp
+
+- name: Chnage permission of /var/log/wtmp based on result
+  file:
+    path: /var/log/wtmp 
+    mode: 0664
+    backup: yes
+  when: result_wtmp.stat.mode != 0664
+
+
+- name: check permission of /var/log/lastlog
+  stat:
+    path: /var/log/lastlog
+  register: result_lstlog
+
+- name: Chnage permission of /var/log/lastlog based on result
+  file:
+    path: /var/log/lastlog
+    mode: 0622
+    backup: yes
+  when: result_lstlog.stat.mode != 0622
+
