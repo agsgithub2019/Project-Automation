@@ -5,3 +5,7 @@
     src: login.defs
     dest: /etc
     backup: yes
+  register: password_policies
+
+- name:
+  debug: var=password_policies
