@@ -1,6 +1,6 @@
 ---
 
-- hosts: automation
+- hosts: all
   roles:
   - hardening
 
