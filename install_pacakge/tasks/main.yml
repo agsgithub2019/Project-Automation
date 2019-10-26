@@ -1,0 +1,13 @@
+---
+# tasks file for install_pacakge
+
+- name: Install Pacakge on selected server
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+  - "{{ Package_Name }}"
+  register: install_pacakge
+
+- name: 
+  debug: var=install_pacakge
