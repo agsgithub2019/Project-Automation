@@ -3,10 +3,10 @@
 
 - name: Install Pacakge on selected server
   yum:
-    name: "{{ item }}"
+    name: "{{ Package_Name }}"
     state: latest
-  with_items:
-  - "{{ Package_Name }}"
+#  with_items:
+#  - "{{ Package_Name,Package_Name }}"
   register: install_pacakge
 
 - name: 

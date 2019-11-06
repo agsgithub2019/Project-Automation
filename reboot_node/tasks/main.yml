@@ -1,0 +1,4 @@
+---
+# tasks file for reboot_node
+- include: take_pretask.yml
+- include: reboot.yml

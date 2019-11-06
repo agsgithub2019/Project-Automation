@@ -1,0 +1,17 @@
+# Take necessary pre-check and its backup before reboot of node
+---
+
+- name: Take necessary pre-check
+  #script: /opt/pre_check.sh
+  script: /opt/pre_check.sh
+  register: pre_task
+
+- name: Check if any failure
+  fail:
+    msg: " Prechecks have been failed "
+  when: pre_task.rc != 0
+
+- name: Check if any success
+  debug:
+    msg: " Precheck have been taken ssuccessfully under /opt/{{ ansible_hostname }} directory "
+  when: pre_task.changed == true

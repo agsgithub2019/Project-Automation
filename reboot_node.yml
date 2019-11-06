@@ -1,0 +1,6 @@
+---
+
+- hosts: ansclient
+  roles:
+  - reboot_node
+

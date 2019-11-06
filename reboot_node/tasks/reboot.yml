@@ -1,0 +1,26 @@
+# reboot of server 
+---
+
+- name: uptime of {{ ansible_hostname }} before reboot initiated
+  shell: uptime
+  register: uptime_before_reboot
+
+- name: Display uptime before reboot
+  debug: msg={{ uptime_before_reboot.stdout }}
+
+- name: Reboot server {{ ansible_hostname }}
+  shell: sleep 2 && shutdown -r now "Ansible Job triggered for Reboot of  {{ ansible_hostname }}"
+  async: 1
+  poll: 0
+  
+- name: wait for server to come up
+  wait_for_connection:
+    connect_timeout: 10 #Maximum number of seconds to wait for a connection to happen before closing and retrying
+    delay: 5 #Number of seconds to wait before starting to poll.
+    sleep: 5 #Number of seconds to sleep between checks
+    timeout: 300 # Maximum number of seconds to wait for
+
+- name: Check uptime post reboot
+  shell: uptime
+  register: uptime_after_reboot
+- debug: msg={{ uptime_after_reboot.stdout }}
