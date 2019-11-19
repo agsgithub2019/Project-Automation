@@ -1,0 +1,23 @@
+---
+
+- name: Check existin PV
+  command: pvs|grep "{{ disk_name }}"
+  register: pvs
+
+- debug: var=pvs
+
+- name: Create PV on the newly attached disk
+  shell: pvcreate "{{ disk_name }}1"
+  register: pvcreate
+
+- debug:
+    msg: "{{ pvcreate.stdout_lines }}"
+  when: pvcreate.changed == true
+
+
+#- name: Chek whether PV already exist or not
+#  fail: 
+#    msg: " PV already exist "
+#  when: 
+
+# 
