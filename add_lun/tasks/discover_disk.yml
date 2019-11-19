@@ -1,0 +1,11 @@
+- name: create partition on the given disk name
+  shell: /bin/echo -e "n\np\n1\n\n\nt\n8e\nw" | fdisk "{{ disk_name }}" ## Create the partition on a disk.
+  register: partitioning
+
+- debug: var=partitioning
+
+- set_fact:
+    part: "{{ partitioning.stdout_lines|to_json }}"
+
+- debug:
+    var: part.split('\n') | replace('\\r','')
