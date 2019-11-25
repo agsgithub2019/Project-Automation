@@ -7,13 +7,16 @@
 - name: create partition on the given disk name
   shell: /bin/echo -e "n\np\n1\n\n\nt\n8e\nw" | fdisk "{{ disk_name }}" ## Create the partition on a disk.
   register: partitioning
-  when: pvs_list.stdout | regex_search  '^{{ disk_name }}' 
 
 - debug: var=partitioning
-#- debug: var=partitioning.stdout.split('\n\n')
 
-#- set_fact:
-#    part: "{{ partitioning.stdout|to_json }}"
+- set_fact:
+    part: "{{ partitioning.stdout|to_json }}"
 
-#- debug:
-    #var: part.split('\n\n\n')
+- debug: var=part.split('\n\n')
+    
+
+- name: test failure condition
+  fail:
+    msg: " you are trying to add the same disk which is already there "
+  when: "'{{ disk_name }}' in pvs_list.stdout"
